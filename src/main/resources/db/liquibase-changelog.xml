@@ -1,0 +1,34 @@
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+         http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.1.xsd">
+
+    <changeSet author="Aleydin" id="1">
+        <createTable tableName="Baby">
+            <column name="baby_id" type="varchar(36)">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="username" type="varchar(30)">
+                <constraints unique="true" nullable="false"/>
+            </column>
+            <column name="email" type="varchar(30)"/>
+        </createTable>
+
+        <createTable tableName="BabyFriends">
+            <column name="first_baby_id" type="varchar(36)"/>
+            <column name="second_baby_id" type="varchar(36)"/>
+            <column name="is_active" type="boolean"/>
+        </createTable>
+
+        <addForeignKeyConstraint constraintName="firendRequestSender"
+                                 baseTableName="BabyFriends" baseColumnNames="first_baby_id"
+                                 referencedTableName="Baby" referencedColumnNames="baby_id" />
+        <addForeignKeyConstraint constraintName="friendRequestReceiver"
+                                 baseTableName="BabyFriends" baseColumnNames="second_baby_id"
+                                 referencedTableName="Baby" referencedColumnNames="baby_id" />
+
+
+    </changeSet>
+
+</databaseChangeLog>
