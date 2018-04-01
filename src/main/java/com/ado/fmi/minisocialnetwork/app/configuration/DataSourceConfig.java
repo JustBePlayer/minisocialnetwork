@@ -8,15 +8,7 @@ import org.springframework.jdbc.datasource.embedded.EmbeddedDatabaseType;
 
 import javax.sql.DataSource;
 
-@Configuration
+
 public class DataSourceConfig {
-  @Bean
-  public DataSource dataSource(){
-    EmbeddedDatabaseBuilder builder = new EmbeddedDatabaseBuilder();
-    EmbeddedDatabase db = builder
-        .setType(EmbeddedDatabaseType.DERBY)
-        .build();
-    return db;
-  }
 
 }
