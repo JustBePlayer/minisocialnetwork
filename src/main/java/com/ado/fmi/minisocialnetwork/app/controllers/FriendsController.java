@@ -1,5 +1,7 @@
 package com.ado.fmi.minisocialnetwork.app.controllers;
 
+import com.ado.fmi.minisocialnetwork.app.exceptions.FriendshipAlreadyApprovedException;
+import com.ado.fmi.minisocialnetwork.app.exceptions.FriendshipAlreadySentException;
 import com.ado.fmi.minisocialnetwork.app.resources.BabyFriendship;
 import com.ado.fmi.minisocialnetwork.app.service.BabySocialNetworkService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,8 +13,8 @@ import javax.validation.Valid;
 import java.util.UUID;
 
 @RestController
-@RequestMapping(path = "babies/friends", produces = "application/json")
-public class FriendsController extends BabyController {
+@RequestMapping(path = "/friendship", produces = "application/json")
+public class FriendsController {
 
   @Autowired
   private BabySocialNetworkService socialNetworkService;
@@ -23,8 +25,13 @@ public class FriendsController extends BabyController {
     String friendshipId = UUID.randomUUID().toString();
     BabyFriendship identifiedFriendship = new BabyFriendship.Builder(friendship).setId(friendshipId).build();
 
-    //socialNetworkService.createBaby(identifiedFriendship);
+    BabyFriendship responseFriendship = socialNetworkService.requestFriendship(identifiedFriendship);
 
-    return new ResponseEntity<>(identifiedFriendship, HttpStatus.OK);
+    return new ResponseEntity<>(responseFriendship, HttpStatus.OK);
+  }
+
+  @ExceptionHandler({FriendshipAlreadyApprovedException.class, FriendshipAlreadySentException.class})
+  public ResponseEntity<Void> handleFriendshipExceptions() {
+    return new ResponseEntity<>(HttpStatus.CONFLICT);
   }
 }

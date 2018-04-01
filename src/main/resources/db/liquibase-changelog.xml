@@ -19,6 +19,9 @@
         </createTable>
 
         <createTable tableName="BabyFriends">
+            <column name="friendship_id" type="varchar(36)">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
             <column name="first_baby_id" type="varchar(36)"/>
             <column name="second_baby_id" type="varchar(36)"/>
             <column name="is_active" type="boolean"/>
