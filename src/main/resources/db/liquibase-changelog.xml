@@ -13,9 +13,15 @@
                 <constraints unique="true" nullable="false"/>
             </column>
             <column name="email" type="varchar(30)"/>
+            <column name="firstName" type="varchar(30)"/>
+            <column name="lastName" type="varchar(30)"/>
+            <column name="age" type="integer"/>
         </createTable>
 
         <createTable tableName="BabyFriends">
+            <column name="friendship_id" type="varchar(36)">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
             <column name="first_baby_id" type="varchar(36)"/>
             <column name="second_baby_id" type="varchar(36)"/>
             <column name="is_active" type="boolean"/>
